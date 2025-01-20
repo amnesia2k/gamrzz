@@ -7,6 +7,7 @@ import ApplicationCard from "../ui/ApplicationCard";
 
 const CreatedApplications = () => {
   const { user } = useUser();
+  
   const {
     loading: loadingApplications,
     data: applications,
