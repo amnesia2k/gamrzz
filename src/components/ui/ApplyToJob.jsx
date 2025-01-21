@@ -23,12 +23,12 @@ import { BarLoader } from "react-spinners";
 
 const schema = z.object({
   experience: z
-    .number()
-    .min(0, { message: "Experience must be at least 0" })
+    .number({ message: "Number is expected" })
+    .min(1, { message: "Experience must be at least 1" })
     .int(),
   skills: z.string().min(1, { message: "Skills are required" }),
   education: z.enum(["Beginner", "Intermediate", "Professional"], {
-    message: "Education is required",
+    message: "Level is required",
   }),
   resume: z
     .any()
@@ -40,7 +40,7 @@ const schema = z.object({
           file[0].type === "image/png" ||
           file[0].type === "image/jpeg" ||
           file[0].type === "image/jpg"),
-      { message: "Only PDF files and images (png, jpeg, jpg) are supported" }
+      { message: "files supported: PDF and images (.png, .jpeg, .jpg)" }
     ),
 });
 
@@ -87,7 +87,8 @@ const ApplyToJob = ({ user, job, applied = false, fetchJob }) => {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>
-            Apply for {job?.title} at {job?.company?.name}
+            <h3>Apply for {job?.title}</h3>
+            {/* at {job?.company?.name} */}
           </DrawerTitle>
           <DrawerDescription>
             Please fill the required form below
@@ -98,63 +99,76 @@ const ApplyToJob = ({ user, job, applied = false, fetchJob }) => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 p-4 pb-0"
         >
-          <Input
-            type="number"
-            placeholder="Years of experience"
-            className="flex-1"
-            {...register("experience", { valueAsNumber: true })}
-          />
-          {errors.experience && (
-            <p className="text-red-500">{errors.experience.message}</p>
-          )}
-
-          <Input
-            type="text"
-            placeholder="Skills (Comma Separated)"
-            className="flex-1"
-            {...register("skills")}
-          />
-          {errors.experience && (
-            <p className="text-red-500">{errors.skills.message}</p>
-          )}
-
-          {/* <Radio */}
-          <Controller
-            name="education"
-            control={control}
-            render={({ field }) => (
-              <RadioGroup onValueChange={field.onChange} {...field}>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Beginner" id="beginner" />
-                  <Label htmlFor="beginner">Beginner</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Intermediate" id="intermediate" />
-                  <Label htmlFor="intermediate">Intermediate</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Professional" id="professional" />
-                  <Label htmlFor="professional">Professional</Label>
-                </div>
-              </RadioGroup>
+          <div>
+            <Input
+              type="number"
+              placeholder="Years of experience"
+              className="flex-1"
+              {...register("experience", { valueAsNumber: true })}
+            />
+            {errors.experience && (
+              <p className="text-red-500 text-xs">
+                {errors.experience.message}
+              </p>
             )}
-          />
-          {errors.experience && (
-            <p className="text-red-500">{errors.education.message}</p>
-          )}
+          </div>
 
-          <Input
-            type="file"
-            accepts=".pdf, .doc, .docx, image/*"
-            className="flex-1 file:text-gray-500"
-            {...register("resume")}
-          />
-          {errors.resume && (
-            <p className="text-red-500">{errors.resume.message}</p>
-          )}
+          <div>
+            <Input
+              type="text"
+              placeholder="Skills (Comma Separated)"
+              className="flex-1"
+              {...register("skills")}
+            />
+            {errors.experience && (
+              <p className="text-red-500 text-xs">{errors.skills.message}</p>
+            )}
+          </div>
+
+          <div>
+            {/* <Radio */}
+            <Controller
+              name="education"
+              control={control}
+              render={({ field }) => (
+                <RadioGroup onValueChange={field.onChange} {...field}>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Beginner" id="beginner" />
+                    <Label htmlFor="beginner">Beginner</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Intermediate" id="intermediate" />
+                    <Label htmlFor="intermediate">Intermediate</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Professional" id="professional" />
+                    <Label htmlFor="professional">Professional</Label>
+                  </div>
+                </RadioGroup>
+              )}
+            />
+            {errors.experience && (
+              <p className="text-red-500 text-xs">{errors.education.message}</p>
+            )}
+          </div>
+
+          <div>
+            <Input
+              type="file"
+              accepts=".pdf, .doc, .docx, image/*"
+              className="flex-1 file:text-gray-500"
+              {...register("resume")}
+            />
+            <p className="text-muted-foreground text-xs md:text-base">
+              *files format accepted (.png, .jpg, .jpeg, .pdf)
+            </p>
+            {errors.resume && (
+              <p className="text-red-500 text-xs">{errors.resume.message}</p>
+            )}
+          </div>
 
           {errorApply?.message && (
-            <p className="text-red-500">{errorApply?.message}</p>
+            <p className="text-red-500 text-xs">{errorApply?.message}</p>
           )}
           {loadingApply && <BarLoader width={"100%"} color="#36d7b7" />}
           <Button type="submit" variant="blue" size="lg">

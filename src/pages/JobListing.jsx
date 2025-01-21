@@ -152,7 +152,7 @@ const JobListing = () => {
             onValueChange={(value) => setCompany_id(value)}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Filter by Clan..." />
+              <SelectValue placeholder="Filter by Game..." />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>

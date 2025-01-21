@@ -19,7 +19,7 @@ import { BarLoader } from "react-spinners";
 import { useEffect } from "react";
 
 const schema = z.object({
-  name: z.string().min(1, { message: "Company name is required" }),
+  name: z.string().min(1, { message: "Game name is required" }),
   logo: z
     .any()
     .refine(
@@ -61,16 +61,16 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
     <Drawer>
       <DrawerTrigger>
         <Button type="button" variant="secondary" className="w-full">
-          Add New Clan
+          Add New Game
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Add a New Company</DrawerTitle>
+          <DrawerTitle>Add a New Game</DrawerTitle>
         </DrawerHeader>
 
         <form className="flex flex-col md:flex-row gap-2 p-4 pb-0 items-center">
-          <Input placeholder="Company Name" {...register("name")} />
+          <Input placeholder="Game Name" {...register("name")} />
 
           <Input
             type="file"

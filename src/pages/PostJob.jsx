@@ -26,8 +26,8 @@ import { z } from "zod";
 const schema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   description: z.string().min(1, { message: "Description is required" }),
-  location: z.string().min(1, { message: "Select a location" }),
-  company_id: z.string().min(1, { message: "Select or Add a new Company" }),
+  location: z.string().min(1, { message: "Select a country" }),
+  company_id: z.string().min(1, { message: "Select or Add a new Game" }),
   requirements: z.string().min(1, { message: "Requirements are required" }),
 });
 
@@ -174,7 +174,7 @@ const PostJob = () => {
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Choose a Clan...">
+                    <SelectValue placeholder="Choose a Game...">
                       {field?.value
                         ? companies?.find((c) => c.id === Number(field.value))
                             ?.name

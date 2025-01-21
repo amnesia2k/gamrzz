@@ -55,7 +55,7 @@ const JobCard = ({
   return (
     <Card>
       {loadingDeleteJob && (
-        <BarLoader className="my-4" width={"100%"} color="#36d7b7" />
+        <BarLoader className="rounded-t-lg" width={"100%"} color="#36d7b7" />
       )}
       <CardHeader>
         <CardTitle className="flex justify-between font-bold text-xl items-center">

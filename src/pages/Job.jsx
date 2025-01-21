@@ -51,7 +51,8 @@ const Job = () => {
     <>
       <Helmet>
         {/* Primary Meta Tags */}
-        <title>{`${job?.title} at ${job?.company?.name}`}</title>
+        <title>{`${job?.title}`}</title>
+        {/* at ${job?.company?.name} */}
         <meta
           name="description"
           content="Gamrzz is a platform designed for mobile gamers and team recruiters. It allows recruiters to create contracts for their teams and players to apply, fostering connections between skilled players and competitive teams."
@@ -154,13 +155,17 @@ const Job = () => {
           </Select>
         )}
 
-        <h2 className="text-2xl md:text-4xl font-bold">About the Job</h2>
-        <p className="sm:text-lg">{job?.description}</p>
+        <h2 className="text-2xl md:text-4xl font-bold pb-2">
+          Contract Description
+        </h2>
+        <p className="sm:text-lg mb-5">{job?.description}</p>
 
-        <h2 className="text-2xl md:text-4xl font-bold">Requirements</h2>
+        <h2 className="text-2xl md:text-4xl font-bold pb-2">
+          Contract Requirements
+        </h2>
         <MDEditor.Markdown
           source={job?.requirements}
-          className="bg-transparent sm:text-lg px-0"
+          className="bg-transparent sm:text-lg mb-5"
         />
 
         {/* Render Applications */}
