@@ -23,11 +23,7 @@ const Onboarding = () => {
 
   useEffect(() => {
     if (user?.unsafeMetadata?.role) {
-      navigate(
-        user?.unsafeMetadata?.role === "recruiter"
-          ? "/post-contract"
-          : "/contracts"
-      );
+      navigate("/contracts");
     }
   }, [user, navigate]);
 

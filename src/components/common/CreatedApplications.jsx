@@ -7,7 +7,7 @@ import ApplicationCard from "../ui/ApplicationCard";
 
 const CreatedApplications = () => {
   const { user } = useUser();
-  
+
   const {
     loading: loadingApplications,
     data: applications,
@@ -19,18 +19,22 @@ const CreatedApplications = () => {
   }, []);
 
   if (loadingApplications) {
-    return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
+    return <BarLoader className="my-4" width={"100%"} color="#36d7b7" />;
   }
 
   return (
     <div className="flex flex-col gap-2">
-      {applications?.map((application) => (
-        <ApplicationCard
-          key={application.id}
-          application={application}
-          isCandidate
-        />
-      ))}
+      {applications?.length ? (
+        applications?.map((application) => (
+          <ApplicationCard
+            key={application.id}
+            application={application}
+            isCandidate
+          />
+        ))
+      ) : (
+        <div>No Applications Found...😢</div>
+      )}
     </div>
   );
 };

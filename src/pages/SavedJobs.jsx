@@ -19,7 +19,7 @@ const SavedJobs = () => {
   }, [isLoaded]);
 
   if (!isLoaded || loadingSavedJobs) {
-    return <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />;
+    return <BarLoader className="my-4" width={"100%"} color="#36d7b7" />;
   }
 
   return (

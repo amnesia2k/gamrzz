@@ -7,7 +7,7 @@ import {
   UserButton,
   useUser,
 } from "@clerk/clerk-react";
-import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
+import { Box, BriefcaseBusiness, Heart, PenBox, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Header = () => {
@@ -51,21 +51,40 @@ const Header = () => {
           </SignedOut>
           <SignedIn>
             {user?.unsafeMetadata?.role === "recruiter" && (
-              <Link to="/post-contract">
-                <Button variant="destructive" className="rounded-full">
-                  <PenBox size={20} />+ Contract
-                </Button>
-              </Link>
+              <div className="hidden md:block">
+                <Link to="/post-contract">
+                  <Button variant="destructive" className="rounded-full">
+                    <PenBox size={20} />+ Contract
+                  </Button>
+                </Link>
+              </div>
             )}
+
             <UserButton
               appearance={{
                 elements: {
                   avatarBox: "w-10 h-10",
-                  // userButtonBox: { width: "40px", height: "40px" },
-                  // userButtonAvatarBox: { width: "40px", height: "40px" },
                 },
               }}
             >
+              {user?.unsafeMetadata?.role === "recruiter" && (
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    label="Create Contract"
+                    labelIcon={<Plus size={15} />}
+                    href="/post-contract"
+                  />
+                </UserButton.MenuItems>
+              )}
+
+              <UserButton.MenuItems>
+                <UserButton.Link
+                  label="All Contracts"
+                  labelIcon={<Box size={15} />}
+                  href="/contracts"
+                />
+              </UserButton.MenuItems>
+
               <UserButton.MenuItems>
                 <UserButton.Link
                   label="My Contracts"
@@ -73,13 +92,16 @@ const Header = () => {
                   href="/my-contracts"
                 />
               </UserButton.MenuItems>
-              <UserButton.MenuItems>
-                <UserButton.Link
-                  label="Saved Contracts"
-                  labelIcon={<Heart size={15} />}
-                  href="/saved-contracts"
-                />
-              </UserButton.MenuItems>
+
+              {user?.unsafeMetadata?.role === "player" && (
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    label="Saved Contracts"
+                    labelIcon={<Heart size={15} />}
+                    href="/saved-contracts"
+                  />
+                </UserButton.MenuItems>
+              )}
             </UserButton>
           </SignedIn>
         </div>

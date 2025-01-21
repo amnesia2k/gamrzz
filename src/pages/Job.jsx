@@ -49,7 +49,7 @@ const Job = () => {
   return (
     <div className="flex flex-col md:gap-3 mt-5">
       <div className="flex flex-col-reverse gap-2 md:gap-6 md:flex-row justify-between items-center">
-        <h1 className="gradient-title font-extrabold pb-3 text-2xl md:text-4xl text-center lg:text-5xl">
+        <h1 className="gradient-title font-extrabold text-2xl md:text-4xl">
           {job?.title}
         </h1>
         <img
@@ -59,7 +59,7 @@ const Job = () => {
         />
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center py-3 md:py-0">
         <div className="flex gap-1 md:gap-2 text-sm sm:text-base items-center">
           <MapPin size={17} />
           {job?.location}

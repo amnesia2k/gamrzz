@@ -60,8 +60,8 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
   return (
     <Drawer>
       <DrawerTrigger>
-        <Button type="button" size="sm" variant="secondary">
-          Add Company
+        <Button type="button" variant="secondary" className="w-full">
+          Add New Clan
         </Button>
       </DrawerTrigger>
       <DrawerContent>

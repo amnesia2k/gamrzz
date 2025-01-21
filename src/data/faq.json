@@ -1,26 +1,31 @@
 [
   {
-    "question": "What is Hirrd?",
-    "answer": "Hirrd is a Job Portal Application allows companies to post job listings and users to search and apply for jobs. It provides features for both job seekers and employers, with user-friendly interfaces and secure authentication."
+    "question": "What is Gamrzz?",
+    "answer": "Gamrzz is a platform designed for mobile gamers and team recruiters. It allows recruiters to create contracts for their teams and players to apply, fostering connections between skilled players and competitive teams."
   },
+
   {
-    "question": "How do I post a job?",
-    "answer": "As an employer, you can post a job by navigating to the 'Post Job' section after logging in. Fill in the job details and submit the form to create a new job listing."
+    "question": "How do I create a Contract?",
+    "answer": "As a recruiter, log in to your account and navigate to the 'Create Contract' section. Fill in the details about the role, requirements, and then submit to publish the contract."
   },
+
   {
-    "question": "How can I search for jobs?",
-    "answer": "Job seekers can search for jobs by keywords, location, category, and other filters using the search bar on the homepage or the dedicated job search page."
+    "question": "How can I apply for a Contract?",
+    "answer": "As a player, browse available contracts under the 'All Contracts' section. Select the role you’re interested in and click 'Apply.' Provide any required details or documents and submit your application."
   },
+
   {
-    "question": "How do I apply for a job?",
-    "answer": "To apply for a job, click on the job listing and follow the application instructions provided. You may need to upload your resume and provide additional information."
+    "question": "Can recruiters review and manage applications?",
+    "answer": "Yes, recruiters can manage applications from the 'Applications' section in their dashboard. Here, they can review, accept, or reject applications based on the player's profile and suitability."
   },
+
   {
-    "question": "Can I save jobs to apply later?",
-    "answer": "Yes, you can save job listings by clicking the 'Save Job' button on the job listing. Saved jobs can be accessed from your profile under the 'Saved Jobs' section."
+    "question": "How can I track the status of my applications?",
+    "answer": "Players can track their application status in the contract description, all applications would be available for recruiters to review. Updates such as 'applied', 'reviewing', 'accepted', or 'rejected' will be displayed for each application."
   },
+
   {
-    "question": "How do I track my job applications?",
-    "answer": "Job seekers can track the status of their applications from the 'Applications' section in their profile. This section provides updates on the progress of each application."
+    "question": "Can recruiters update or close contracts?",
+    "answer": "Yes, recruiters can update or close contracts in the contract description. This helps keep contracts up-to-date and ensures only active listings are visible to players."
   }
 ]

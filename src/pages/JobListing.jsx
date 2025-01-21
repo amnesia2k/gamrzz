@@ -12,7 +12,7 @@ import {
 import { getCompanies, getJobs } from "@/helpers/api";
 import useFetch from "@/hooks/useFetch";
 import { useUser } from "@clerk/clerk-react";
-import { State } from "country-state-city";
+import { Country } from "country-state-city";
 import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 
@@ -21,6 +21,7 @@ const JobListing = () => {
   const [location, setLocation] = useState("");
   const [company_id, setCompany_id] = useState("");
   const { isLoaded } = useUser();
+  const countries = Country.getAllCountries();
 
   const {
     fn: fnJobs,
@@ -43,7 +44,7 @@ const JobListing = () => {
     let formData = new FormData(e.target);
 
     const query = formData.get("search-query");
-    if (query) setSearchQuery(query);
+    if (query) return setSearchQuery(query);
   };
 
   const clearFilters = () => {
@@ -53,12 +54,12 @@ const JobListing = () => {
   };
 
   if (!isLoaded) {
-    return <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />;
+    return <BarLoader className="my-4" width={"100%"} color="#36d7b7" />;
   }
 
   return (
     <div>
-      <h1 className="gradient-title font-extrabold text-6xl md:text-7xl text-center pb-8">
+      <h1 className="gradient-title font-extrabold text-3xl md:text-5xl text-center pb-3">
         Latest Jobs
       </h1>
 
@@ -68,6 +69,8 @@ const JobListing = () => {
         className="h-12 flex gap-3 w-full items-center mb-3"
       >
         <Input
+          // value={searchQuery}
+          // onChange={(e) => setSearchQuery(e.target.value)}
           type="text"
           placeholder="Search Jobs by Title"
           name="search-query"
@@ -81,13 +84,20 @@ const JobListing = () => {
       <div className="flex flex-col md:flex-row gap-2">
         <Select value={location} onValueChange={(value) => setLocation(value)}>
           <SelectTrigger>
-            <SelectValue placeholder="Filter by location..." />
+            <SelectValue placeholder="Filter by Country..." />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {State.getStatesOfCountry("NG")?.map(({ isoCode, name }) => (
+              {countries?.map(({ isoCode, name }) => (
                 <SelectItem key={isoCode} value={name}>
-                  {name}
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={`https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`}
+                      alt={`${name} flag`}
+                      className="w-5"
+                    />
+                    <span>{name}</span>
+                  </div>
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -98,7 +108,7 @@ const JobListing = () => {
           onValueChange={(value) => setCompany_id(value)}
         >
           <SelectTrigger>
-            <SelectValue placeholder="Filter by company..." />
+            <SelectValue placeholder="Filter by Clan..." />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -120,7 +130,7 @@ const JobListing = () => {
       </div>
 
       {loadingJobs && (
-        <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />
+        <BarLoader className="my-4" width={"100%"} color="#36d7b7" />
       )}
 
       {loadingJobs === false && (

@@ -20,7 +20,7 @@ const Home = () => {
   return (
     <main className="flex flex-col gap-10 sm:gap-20 py-10 sm-py-20">
       <section className="text-center">
-        <h1 className="flex flex-col items-center justify-center gradient-title text-4xl md:text-6xl lg:text-8xl tracking-tighter py-4 font-extrabold">
+        <h1 className="flex flex-col items-center justify-center gradient-title text-4xl md:text-6xl  lg:text-7xl lg:text-8xl tracking-tighter py-4 font-extrabold">
           Find Your Dream Team{" "}
           <span className="flex items-center gap-2 md:gap-6">
             here on{" "}
@@ -71,16 +71,19 @@ const Home = () => {
       {/* Cards */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>
-          <CardHeader>
+          <CardHeader className="px-5 pt-5">
             <CardTitle>For Players looking for Teams</CardTitle>
           </CardHeader>
-          <CardContent>Search and apply to join clans</CardContent>
+          <CardContent className="px-5 pb-5">
+            Search for clans looking for talented players like you and apply to
+            join
+          </CardContent>
         </Card>
         <Card>
-          <CardHeader>
+          <CardHeader className="px-5 pt-5">
             <CardTitle>For Clans and Guilds</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-5 pb-5">
             Create openings, manage applications, and find the best candidate
           </CardContent>
         </Card>

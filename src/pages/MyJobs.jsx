@@ -7,15 +7,15 @@ const MyJobs = () => {
   const { user, isLoaded } = useUser();
 
   if (!isLoaded) {
-    return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
+    return <BarLoader className="my-4" width={"100%"} color="#36d7b7" />;
   }
 
   return (
     <div>
-      <h1 className="gradient-title font-extrabold text-5xl md:text-7xl text-center pb-8">
+      <h1 className="gradient-title font-extrabold text-3xl md:text-5xl text-center pb-3">
         {user?.unsafeMetadata?.role === "player"
           ? "My Applications"
-          : "My Jobs"}
+          : "My Contracts"}
       </h1>
 
       {user?.unsafeMetadata?.role === "player" ? (

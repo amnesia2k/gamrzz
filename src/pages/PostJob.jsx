@@ -15,7 +15,7 @@ import useFetch from "@/hooks/useFetch";
 import { useUser } from "@clerk/clerk-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
-import { State } from "country-state-city";
+import { Country } from "country-state-city";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -33,6 +33,9 @@ const schema = z.object({
 const PostJob = () => {
   const { isLoaded, user } = useUser();
   const navigate = useNavigate();
+  const countries = Country.getAllCountries();
+
+  console.log(countries);
 
   const {
     register,
@@ -70,7 +73,7 @@ const PostJob = () => {
   }, [loadingCreateJob]);
 
   if (!isLoaded || loadingCompanies) {
-    return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
+    return <BarLoader className="my-4" width={"100%"} color="#36d7b7" />;
   }
 
   if (user?.unsafeMetadata?.role !== "recruiter") {
@@ -79,19 +82,16 @@ const PostJob = () => {
 
   return (
     <div>
-      <h1 className="gradient-title font-extrabold text-5xl md:text-7xl text-center pb-8">
-        Post a new Job
+      <h1 className="gradient-title font-extrabold text-3xl md:text-5xl text-center py-3">
+        Create Contract
       </h1>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 p-4 pb-0"
-      >
-        <Input placeholder="Job Title..." {...register("title")} />
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <Input placeholder="Contract Title..." {...register("title")} />
         {errors.title && <p className="text-red-500">{errors.title.message}</p>}
 
         <Textarea
-          placeholder="Job Description..."
+          placeholder="Contract Description..."
           {...register("description")}
         />
         {errors.description && (
@@ -105,17 +105,22 @@ const PostJob = () => {
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Filter by location..." />
+                  <SelectValue placeholder="Select a location..." />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {State.getStatesOfCountry("NG")?.map(
-                      ({ isoCode, name }) => (
-                        <SelectItem key={isoCode} value={name}>
-                          {name}
-                        </SelectItem>
-                      )
-                    )}
+                    {countries?.map(({ isoCode, name }) => (
+                      <SelectItem key={isoCode} value={name}>
+                        <div className="flex items-center gap-2">
+                          <img
+                            src={`https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`}
+                            alt={`${name} flag`}
+                            className="w-5"
+                          />
+                          <span>{name}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -128,7 +133,7 @@ const PostJob = () => {
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Filter by company...">
+                  <SelectValue placeholder="Choose a Clan...">
                     {field?.value
                       ? companies?.find((c) => c.id === Number(field.value))
                           ?.name
@@ -172,7 +177,7 @@ const PostJob = () => {
           <p className="text-red-500">{errorCreateJob?.message}</p>
         )}
         {loadingCreateJob && <BarLoader width={"100%"} color="#36d7b7" />}
-        <Button type="submit" variant="blue" size="lg" className="mt-2">
+        <Button type="submit" variant="blue" size="lg">
           Submit
         </Button>
       </form>
