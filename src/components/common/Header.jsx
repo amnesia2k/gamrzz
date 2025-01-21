@@ -85,13 +85,23 @@ const Header = () => {
                 />
               </UserButton.MenuItems>
 
-              <UserButton.MenuItems>
-                <UserButton.Link
-                  label="My Contracts"
-                  labelIcon={<BriefcaseBusiness size={15} />}
-                  href="/my-contracts"
-                />
-              </UserButton.MenuItems>
+              {user?.unsafeMetadata?.role === "player" ? (
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    label="My Applications"
+                    labelIcon={<BriefcaseBusiness size={15} />}
+                    href="/my-contracts"
+                  />
+                </UserButton.MenuItems>
+              ) : (
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    label="My Contracts"
+                    labelIcon={<BriefcaseBusiness size={15} />}
+                    href="/my-contracts"
+                  />
+                </UserButton.MenuItems>
+              )}
 
               {user?.unsafeMetadata?.role === "player" && (
                 <UserButton.MenuItems>

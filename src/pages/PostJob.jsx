@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import MDEditor from "@uiw/react-md-editor";
 import { Country } from "country-state-city";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 import { Controller, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 import { BarLoader } from "react-spinners";
@@ -34,8 +35,6 @@ const PostJob = () => {
   const { isLoaded, user } = useUser();
   const navigate = useNavigate();
   const countries = Country.getAllCountries();
-
-  console.log(countries);
 
   const {
     register,
@@ -81,107 +80,150 @@ const PostJob = () => {
   }
 
   return (
-    <div>
-      <h1 className="gradient-title font-extrabold text-3xl md:text-5xl text-center py-3">
-        Create Contract
-      </h1>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <Input placeholder="Contract Title..." {...register("title")} />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-
-        <Textarea
-          placeholder="Contract Description..."
-          {...register("description")}
+    <>
+      <Helmet>
+        {/* Primary Meta Tags */}
+        <title>Gamrzz • New Contract</title>
+        <meta
+          name="description"
+          content="Gamrzz is a platform designed for mobile gamers and team recruiters. It allows recruiters to create contracts for their teams and players to apply, fostering connections between skilled players and competitive teams."
         />
-        {errors.description && (
-          <p className="text-red-500">{errors.description.message}</p>
-        )}
+        <meta
+          name="keywords"
+          content="Gamrzz, mobile gaming, esports recruitment, gaming platform, team recruiters, gamers, clan contracts, player applications, competitive gaming, mobile esports"
+        />
+        <meta name="author" content="Gamrzz" />
 
-        <div className="flex items-center flex-col md:flex-row gap-4">
-          <Controller
-            name="location"
-            control={control}
-            render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a location..." />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {countries?.map(({ isoCode, name }) => (
-                      <SelectItem key={isoCode} value={name}>
-                        <div className="flex items-center gap-2">
-                          <img
-                            src={`https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`}
-                            alt={`${name} flag`}
-                            className="w-5"
-                          />
-                          <span>{name}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Gamrzz • New Contract" />
+        <meta
+          property="og:description"
+          content="Gamrzz is a platform designed for mobile gamers and team recruiters. It allows recruiters to create contracts for their teams and players to apply, fostering connections between skilled players and competitive teams."
+        />
+        <meta property="og:url" content="https://gamrzz.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://gamrzz.vercel.app/ms-icon-310x310.png"
+        />
 
-          <Controller
-            name="company_id"
-            control={control}
-            render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose a Clan...">
-                    {field?.value
-                      ? companies?.find((c) => c.id === Number(field.value))
-                          ?.name
-                      : "Company"}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {companies?.map(({ name, id }) => (
-                      <SelectItem key={id} value={id}>
-                        {name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Gamrzz • New Contract" />
+        <meta
+          name="twitter:description"
+          content="Gamrzz is a platform designed for mobile gamers and team recruiters. It allows recruiters to create contracts for their teams and players to apply, fostering connections between skilled players and competitive teams."
+        />
+        <meta
+          name="twitter:image"
+          content="https://gamrzz.vercel.app/ms-icon-310x310.png"
+        />
+      </Helmet>
 
-          {/* Add Company Drawer */}
-          <AddCompanyDrawer fetchCompanies={fnCompanies} />
-        </div>
-        {errors.location && (
-          <p className="text-red-500">{errors.location.message}</p>
-        )}
-        {errors.company_id && (
-          <p className="text-red-500">{errors.company_id.message}</p>
-        )}
+      <main>
+        <h1 className="gradient-title font-extrabold text-3xl md:text-5xl text-center py-3">
+          New Contract
+        </h1>
 
-        <Controller
-          name="requirements"
-          control={control}
-          render={({ field }) => (
-            <MDEditor value={field.value} onChange={field.onChange} />
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <Input placeholder="Contract Title..." {...register("title")} />
+          {errors.title && (
+            <p className="text-red-500">{errors.title.message}</p>
           )}
-        />
-        {errors.requirements && (
-          <p className="text-red-500">{errors.requirements.message}</p>
-        )}
-        {errorCreateJob?.message && (
-          <p className="text-red-500">{errorCreateJob?.message}</p>
-        )}
-        {loadingCreateJob && <BarLoader width={"100%"} color="#36d7b7" />}
-        <Button type="submit" variant="blue" size="lg">
-          Submit
-        </Button>
-      </form>
-    </div>
+
+          <Textarea
+            placeholder="Contract Description..."
+            {...register("description")}
+          />
+          {errors.description && (
+            <p className="text-red-500">{errors.description.message}</p>
+          )}
+
+          <div className="flex items-center flex-col md:flex-row gap-4">
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a location..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {countries?.map(({ isoCode, name }) => (
+                        <SelectItem key={isoCode} value={name}>
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={`https://flagcdn.com/w40/${isoCode.toLowerCase()}.png`}
+                              alt={`${name} flag`}
+                              className="w-5"
+                            />
+                            <span>{name}</span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+
+            <Controller
+              name="company_id"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose a Clan...">
+                      {field?.value
+                        ? companies?.find((c) => c.id === Number(field.value))
+                            ?.name
+                        : "Company"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {companies?.map(({ name, id }) => (
+                        <SelectItem key={id} value={id}>
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+
+            {/* Add Company Drawer */}
+            <AddCompanyDrawer fetchCompanies={fnCompanies} />
+          </div>
+          {errors.location && (
+            <p className="text-red-500">{errors.location.message}</p>
+          )}
+          {errors.company_id && (
+            <p className="text-red-500">{errors.company_id.message}</p>
+          )}
+
+          <Controller
+            name="requirements"
+            control={control}
+            render={({ field }) => (
+              <MDEditor value={field.value} onChange={field.onChange} />
+            )}
+          />
+          {errors.requirements && (
+            <p className="text-red-500">{errors.requirements.message}</p>
+          )}
+          {errorCreateJob?.message && (
+            <p className="text-red-500">{errorCreateJob?.message}</p>
+          )}
+          {loadingCreateJob && <BarLoader width={"100%"} color="#36d7b7" />}
+          <Button type="submit" variant="blue" size="lg">
+            Submit
+          </Button>
+        </form>
+      </main>
+    </>
   );
 };
 
